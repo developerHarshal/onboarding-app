@@ -1,75 +1,51 @@
-# React + TypeScript + Vite
+# onboarding-app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScript app with a login page and a 4-step onboarding flow (profile, favourite songs, payment, success). After that you hit a simple dashboard.
 
-Currently, two official plugins are available:
+No backend — login is fake, everything lives in the browser. Progress is saved to localStorage via redux-persist, so closing the tab shouldn't lose your place.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Run it
 
-## React Compiler
+Node 24 (`.nvmrc`):
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Other useful commands: `npm run build`, `npm run lint`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Login credentials
 
 ```
+username: harshal@gmail.com
+password: admin@123
+```
+
+Also shown in the info icon on the login form.
+
+## How it works
+
+1. Log in
+2. Walk through onboarding — back/next keeps your form data
+3. Finish on the success step → dashboard
+
+Routes: `/login`, `/onboarding?step=0` … `?step=3`, `/dashboard`
+
+If onboarding is already done, you skip straight to the dashboard.
+
+## Built with
+
+React, Vite, MUI, Redux Toolkit, redux-persist, Formik, Yup, React Router
+
+## Structure
+
+```
+src/
+  app/              redux store
+  modules/          login, onboarding, dashboard
+  routes/           router + guards
+  common/           components, schemas, constants
+```
+
+To reset everything, clear site data / localStorage.
