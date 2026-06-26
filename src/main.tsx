@@ -16,9 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Box
           sx={{
             minHeight: "100vh",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+
             background: (theme) => theme.palette.background.default,
           }}
         >

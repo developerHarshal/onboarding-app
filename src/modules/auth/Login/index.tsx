@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { LoginSchema } from '@schemas/login.schema';
-import { Box, Button, Container, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, Grow, Paper, TextField, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '@/app/store';
 import { useNavigate } from 'react-router-dom';
@@ -27,8 +27,8 @@ const Login = () => {
         }
     })
     return (
-        <Box>
-            <Paper elevation={5} sx={{ p: 4 }} square={false}>
+        <Box sx={{ display: 'grid', placeItems: 'center', height: '100vh' }}>
+            <Grow in timeout={1000}><Paper elevation={5} sx={{ p: 4 }} square={false}>
                 <Container maxWidth="md" sx={{ minWidth: '500px' }}>
                     <Typography variant='h5' gutterBottom align='center'>Login</Typography>
                     <Box component="form"
@@ -57,7 +57,7 @@ const Login = () => {
                         {error && <Typography variant='caption' color="theme.pallete.error.main">{error}</Typography>}
                     </Box>
                 </Container>
-            </Paper>
+            </Paper></Grow>
         </Box>
     )
 }
