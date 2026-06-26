@@ -1,11 +1,13 @@
 import { useFormik } from 'formik';
 import { LoginSchema } from '@schemas/login.schema';
-import { Box, Button, Container, Grow, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, Grow, Paper, TextField, Tooltip, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '@/app/store';
 import { useNavigate } from 'react-router-dom';
 import { login } from './state/authSlice';
 import { APP_ROUTES } from '@/common/constants/routing/routes';
+import { Info } from '@mui/icons-material';
+import { DUMMY_USER_DETAILS } from '@/common/constants/constants';
 
 const Login = () => {
     const { loading, error } = useSelector((state: RootState) => state.auth);
@@ -31,7 +33,20 @@ const Login = () => {
         <Box sx={{ display: 'grid', placeItems: 'center', height: '100vh' }}>
             <Grow in timeout={1000}><Paper elevation={5} sx={{ p: 4 }} square={false}>
                 <Container maxWidth="md" sx={{ minWidth: '500px' }}>
-                    <Typography variant='h5' gutterBottom align='center'>Login</Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', placeItems: 'center', justifyContent: 'center', gap: 1 }}>
+                        <Typography variant='h5' gutterBottom align='center'>Login</Typography>
+                        <Tooltip title={<>
+                            <Typography variant='body2' color="text.secondary">Use the following credentials to login:</Typography>
+                            <br />
+                            <Typography variant='body2' color="text.secondary">Username: {DUMMY_USER_DETAILS.username}</Typography>
+                            <Typography variant='body2' color="text.secondary">Password: {DUMMY_USER_DETAILS.password}</Typography>
+                        </>
+                        }
+                            placement="top"
+                        >
+                            <Info sx={{ cursor: 'pointer' }} />
+                        </Tooltip>
+                    </Box>
                     <Box component="form"
                         onSubmit={formik.handleSubmit}
                         sx={{
@@ -55,7 +70,7 @@ const Login = () => {
                                 formik.errors.password
                             } />
                         <Button variant='outlined' type='submit' sx={{ minWidth: "100px", m: 'auto' }} loading={loading}>Login</Button>
-                        {error && <Typography variant='caption' color="theme.pallete.error.main">{error}</Typography>}
+                        {error && <Typography variant='caption' color="error">{error}</Typography>}
                     </Box>
                 </Container>
             </Paper></Grow>

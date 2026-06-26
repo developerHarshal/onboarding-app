@@ -1,4 +1,4 @@
-import React, { useState, type ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import {
     Box,
     Button,
@@ -9,35 +9,31 @@ import {
 } from "@mui/material";
 
 export type Step = {
-    label: string,
-    element: ReactNode,
-    stepId: number,
-}
+    label: string;
+    element: ReactNode;
+    submitFormId?: string;
+};
 
-export const Stepper: React.FC<{ steps: Step[] }> = ({ steps }) => {
-    const [activeStep, setActiveStep] = useState(steps[0].stepId);
+type StepperProps = {
+    steps: Step[];
+    activeStep: number;
+    onNext: () => void;
+    onBack: () => void;
+};
 
-    const handleNext = () => {
-        if (activeStep + 1 !== steps.length)
-            setActiveStep((prev) => prev + 1);
-    };
-
-    const handleBack = () => {
-        setActiveStep((prev) => prev - 1);
-    };
-
-    const handleReset = () => {
-        setActiveStep(0);
-    };
-
-    const renderStepContent = (step) => {
-        const _activeStep = steps.find(_step => _step.stepId === step);
-        return _activeStep.element;
-    };
+export const Stepper: React.FC<StepperProps> = ({
+    steps,
+    activeStep,
+    onNext,
+    onBack,
+}) => {
+    const currentStep = steps[activeStep];
+    const submitFormId = currentStep?.submitFormId;
+    const isLastStep = activeStep === steps.length - 1;
 
     return (
         <Paper sx={{ maxWidth: 700, mx: "auto", p: 4 }}>
-            <MuiStepper activeStep={activeStep} alternativeLabel>
+            <MuiStepper activeStep={activeStep} alternativeLabel sx={{ mb: 4 }}>
                 {steps.map((step) => (
                     <Step key={step.label}>
                         <StepLabel>{step.label}</StepLabel>
@@ -45,32 +41,26 @@ export const Stepper: React.FC<{ steps: Step[] }> = ({ steps }) => {
                 ))}
             </MuiStepper>
 
-            <Box sx={{ mt: 5, minHeight: 150 }}>
-                {renderStepContent(activeStep)}
+            <Box sx={{ mt: 2, minHeight: 430, display: 'flex', flexDirection: 'column' }}>
+                {currentStep?.element ?? <div>No step content found</div>}
 
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        mt: 4,
-                    }}
-                >
-                    <Button
-                        disabled={activeStep === 0}
-                        onClick={handleBack}
-                    >
+                <Box sx={{ display: "flex", justifyContent: "space-between", mt: 'auto' }}>
+                    <Button disabled={activeStep === 0} onClick={onBack}>
                         Back
                     </Button>
 
-                    <Button variant="contained" onClick={handleNext}>
-                        {activeStep === steps.length - 1
-                            ? "Finish"
-                            : "Next"}
+                    <Button
+                        variant="contained"
+                        type={submitFormId ? "submit" : "button"}
+                        form={submitFormId}
+                        onClick={submitFormId ? undefined : onNext}
+                    >
+                        {isLastStep ? "Finish" : "Next"}
                     </Button>
                 </Box>
             </Box>
         </Paper>
     );
-}
+};
 
 export default Stepper;

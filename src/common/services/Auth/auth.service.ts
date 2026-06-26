@@ -1,5 +1,5 @@
 import type { User } from "@modules/auth/login/state/authSlice";
-
+import { DUMMY_USER_DETAILS } from "@/common/constants/constants";
 
 export type LoginPayload = {
     username: string,
@@ -7,11 +7,11 @@ export type LoginPayload = {
 };
 
 const checkValidCreds = (username: string, password: string): User | null => {
-    if(username == "harshalgawde@gmail.com" && password == "admin@123"){
+    if(username == DUMMY_USER_DETAILS.username && password == DUMMY_USER_DETAILS.password){
         const user: User = {
-            username: "harshalgawde@gmail.com",
+            username: DUMMY_USER_DETAILS.username,
             id:1,
-            name: "Harshal Gawde"
+            name: DUMMY_USER_DETAILS.name
         };
         return user;
     } else return null; 

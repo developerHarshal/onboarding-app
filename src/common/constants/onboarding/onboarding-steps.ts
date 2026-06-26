@@ -1,5 +1,6 @@
 export const ONBOARDING_STEPS = {
     PROFILE: 0,
     FAVOURITE_SONGS: 1,
-    PAYMENT: 2
+    PAYMENT: 2,
+    SUCCESS: 3
 }
