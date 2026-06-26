@@ -72,7 +72,6 @@ const ProfileForm = ({ onSuccess, submitFormId }: ProfileFormProps) => {
             <Form id={submitFormId} onSubmit={formik.handleSubmit}>
                 <Grid container spacing={2}>
                     <TextField
-                        name="name"
                         required
                         label="Name"
                         {...formik.getFieldProps('name')}
@@ -80,7 +79,6 @@ const ProfileForm = ({ onSuccess, submitFormId }: ProfileFormProps) => {
                         helperText={formik.touched.name && (formik.errors.name as string)}
                     />
                     <TextField
-                        name="age"
                         required
                         label="Age"
                         {...formik.getFieldProps('age')}
@@ -89,7 +87,6 @@ const ProfileForm = ({ onSuccess, submitFormId }: ProfileFormProps) => {
                         helperText={formik.touched.age && (formik.errors.age as string)}
                     />
                     <TextField
-                        name="email"
                         required
                         label="Email"
                         {...formik.getFieldProps('email')}
@@ -116,8 +113,8 @@ const ProfileForm = ({ onSuccess, submitFormId }: ProfileFormProps) => {
                                     {selectedFileName
                                         ? `New image: ${selectedFileName}`
                                         : hasSavedPicture
-                                          ? 'Saved profile picture'
-                                          : 'Profile picture'}
+                                            ? 'Saved profile picture'
+                                            : 'Profile picture'}
                                 </Typography>
                             </Box>
                         )}

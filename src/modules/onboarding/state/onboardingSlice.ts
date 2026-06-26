@@ -3,7 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 export type ProfileDetails = {
     name: string;
     email: string;
-    age: number;
+    age: number | null;
     profilePicture: Base64URLString;
 }
 
@@ -15,7 +15,7 @@ export type PaymentDetails = {
 
 type OnboardingState = {
     profileDetails: ProfileDetails;
-    onboardingStep: number;
+    onboardingStep: number | null;
     favouriteSongs: { favouriteSongs: string[] };
     paymentDetails: PaymentDetails;
 };

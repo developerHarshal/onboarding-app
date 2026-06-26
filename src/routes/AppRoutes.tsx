@@ -6,9 +6,16 @@ import Dashboard from "@modules/dashboard";
 import { Onboarding } from "@/modules/onboarding";
 import OnboardingGuard from "./OnboardingGuard";
 import OnboardingCompleteGuard from "./OnboardingCompleteGuard";
+import DefaultRoute from "./DefaultRoute";
 import { APP_ROUTES } from "@/common/constants/routing/routes";
 
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 export const router = createBrowserRouter([
+    {
+        path: APP_ROUTES.ROOT,
+        element: <DefaultRoute />,
+    },
     {
         element: <PublicRoute />,
         children: [
@@ -41,4 +48,8 @@ export const router = createBrowserRouter([
             },
         ],
     },
-]);
+    {
+        path: '*',
+        element: <DefaultRoute />,
+    },
+], { basename });

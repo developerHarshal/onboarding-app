@@ -22,6 +22,6 @@ export class AuthService {
         const user = checkValidCreds(payload.username, payload.password);
         if(user)
             return new Promise((resolve) => setTimeout(() => resolve(user), 2000));
-        else return new Promise((res,reject) => setTimeout(() => reject(Error("Invalid Credentials")), 2000))
+        else return new Promise((_res,reject) => setTimeout(() => reject(Error("Invalid Credentials")), 2000))
     }
 }

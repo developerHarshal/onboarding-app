@@ -9,9 +9,9 @@ export type User = {
 
 type AuthState = {
     isAuthenticated: boolean;
-    user: User;
+    user: User | null;
     loading: boolean;
-    error: string;
+    error: string | null;
     isOnboardingCompleted: boolean;
 }
 
@@ -47,21 +47,22 @@ const authSlice = createSlice({
         }
     },
     extraReducers(builder) {
-        builder.addCase(login.pending, (state) => {
-            state.loading = true;
-            state.error = null;
-        }),
-        builder.addCase(login.fulfilled, (state, action) => {
-            state.user = action.payload;
-            state.loading = false;
-            state.error = null;
-            state.isAuthenticated = true;
-        }),
-        builder.addCase(login.rejected, (state, action) => {
-            state.error = action.payload as string;
-            state.loading = false;
-            state.isAuthenticated = false;
-        })
+        builder
+            .addCase(login.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(login.fulfilled, (state, action) => {
+                state.user = action.payload as User;
+                state.loading = false;
+                state.error = null;
+                state.isAuthenticated = true;
+            })
+            .addCase(login.rejected, (state, action) => {
+                state.error = action.payload as string;
+                state.loading = false;
+                state.isAuthenticated = false;
+            });
     },
 });
 

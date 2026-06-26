@@ -1,6 +1,4 @@
 import { Typography } from '@mui/material'
-import { Paper } from "@mui/material"
-
 const SuccessTab = () => {
     return (
         <>

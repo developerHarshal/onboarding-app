@@ -12,7 +12,7 @@ const OnboardingGuard = () => {
     if (isOnboardingCompleted) {
         return <Navigate to={APP_ROUTES.PROTECTED.DASHBOARD} replace />;
     } else {
-        if (onboardingStep < stepFormUrl) {
+        if (Number(onboardingStep) < stepFormUrl) {
             return <Navigate to={getOnboardingStepUrl(onboardingStep ?? ONBOARDING_STEPS.PROFILE)} replace />;
         } else {
             return <Outlet />;

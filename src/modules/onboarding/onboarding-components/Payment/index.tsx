@@ -1,7 +1,6 @@
-import React from 'react';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { PaymentSchema } from '@/common/schemas/payment.schema';
-import { Box, Grid, TextField, Typography } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@/app/hook';
 import { savePaymentDetails, setOnboardingStep, type PaymentDetails } from '../../state/onboardingSlice';
 import { ONBOARDING_STEPS } from '@/common/constants/onboarding/onboarding-steps';
@@ -33,7 +32,6 @@ const PaymentForm = ({ submitFormId }: { submitFormId: string }) => {
             <Form id={submitFormId} onSubmit={formik.handleSubmit}>
                 <Grid container spacing={2}>
                     <TextField
-                        name="cardNumber"
                         required
                         label="Card Number"
                         {...formik.getFieldProps('cardNumber')}
@@ -41,7 +39,6 @@ const PaymentForm = ({ submitFormId }: { submitFormId: string }) => {
                         helperText={formik.touched.cardNumber && (formik.errors.cardNumber as string)}
                     />
                     <TextField
-                        name="expiryDate"
                         required
                         label="Expiry Date"
                         {...formik.getFieldProps('expiryDate')}
@@ -49,7 +46,6 @@ const PaymentForm = ({ submitFormId }: { submitFormId: string }) => {
                         helperText={formik.touched.expiryDate && (formik.errors.expiryDate as string)}
                     />
                     <TextField
-                        name="cvv"
                         required
                         label="CVV"
                         {...formik.getFieldProps('cvv')}

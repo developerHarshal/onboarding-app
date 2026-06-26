@@ -3,7 +3,7 @@ import ProfileForm from "./onboarding-components/Profile";
 import FavouriteSongsForm from "./onboarding-components/FavouriteSongs";
 import PaymentForm from "./onboarding-components/Payment";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { APP_ROUTES, getOnboardingStepUrl } from "@/common/constants/routing/routes";
 import { useAppDispatch, useAppSelector } from "@/app/hook";
 import { ONBOARDING_STEPS } from "@/common/constants/onboarding/onboarding-steps";
@@ -23,15 +23,13 @@ export const Onboarding: React.FC = () => {
     ];
     const [searchParams] = useSearchParams();
     const activeStepUrl = searchParams.get('step');
+    const activeStep = activeStepUrl !== null ? Number(activeStepUrl) : 0;
 
-    const [activeStep, setActiveStep] = useState(0);
     useEffect(() => {
-        if (activeStepUrl !== undefined && activeStepUrl !== null) {
-            setActiveStep(Number(activeStepUrl));
-        } else {
+        if (activeStepUrl === null) {
             navigate(getOnboardingStepUrl(onboardingStep ?? ONBOARDING_STEPS.PROFILE));
         }
-    }, [activeStepUrl, onboardingStep]);
+    }, [activeStepUrl, onboardingStep, navigate]);
 
     const onBack = () => {
         navigate(getOnboardingStepUrl(activeStep - 1));

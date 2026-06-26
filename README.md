@@ -1,3 +1,7 @@
+## Live demo: 
+[https://developerharshal.github.io/onboarding-app/](https://developerharshal.github.io/onboarding-app/)
+
+
 # onboarding-app
 
 React + TypeScript app with a login page and a 4-step onboarding flow (profile, favourite songs, payment, success). After that you hit a simple dashboard.
