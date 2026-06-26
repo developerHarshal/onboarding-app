@@ -1,4 +1,4 @@
-import type { User } from "../../../modules/auth/login/state/authSlice";
+import type { User } from "@modules/auth/login/state/authSlice";
 
 
 export type LoginPayload = {

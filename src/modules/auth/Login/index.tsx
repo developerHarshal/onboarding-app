@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '@/app/store';
 import { useNavigate } from 'react-router-dom';
 import { login } from './state/authSlice';
+import { APP_ROUTES } from '@/common/constants/routing/routes';
 
 const Login = () => {
     const { loading, error } = useSelector((state: RootState) => state.auth);
@@ -20,7 +21,7 @@ const Login = () => {
         onSubmit: async (values) => {
             try {
                 await dispatch(login(values)).unwrap();
-                navigate('/dashboard');
+                navigate(APP_ROUTES.PROTECTED.DASHBOARD);
             } catch (err) {
                 console.error(err);
             }

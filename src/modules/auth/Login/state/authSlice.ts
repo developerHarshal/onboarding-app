@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { AuthService, type LoginPayload } from "@services/Auth/auth.service";
 
 export type User = {
@@ -12,13 +12,15 @@ type AuthState = {
     user: User;
     loading: boolean;
     error: string;
+    isOnboardingCompleted: boolean;
 }
 
 const initialState: AuthState = {
     isAuthenticated: false,
     user: null,
     loading: false,
-    error: null
+    error: null,
+    isOnboardingCompleted: false
 };
 
 export const login = createAsyncThunk('auth/login',
@@ -39,6 +41,9 @@ const authSlice = createSlice({
         logout: (state) => {
             state.isAuthenticated = false;
             state.user = null;
+        },
+        setOnboardingComplete: (state, action: PayloadAction<boolean>) => {
+            state.isOnboardingCompleted = action.payload;
         }
     },
     extraReducers(builder) {
@@ -60,5 +65,5 @@ const authSlice = createSlice({
     },
 });
 
-export const {logout} = authSlice.actions;
+export const { logout, setOnboardingComplete } = authSlice.actions;
 export default authSlice.reducer;

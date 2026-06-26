@@ -8,13 +8,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useAppDispatch } from '@/app/hook';
 import { logout } from '@/modules/auth/login/state/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { APP_ROUTES } from '@/common/constants/routing/routes';
 
 export default function NavBar() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const onLogoutClick = () => {
         dispatch(logout());
-        navigate('/login');
+        navigate(APP_ROUTES.PUBLIC.LOGIN);
     }
     return (
         <Box sx={{ flexGrow: 1 }}>

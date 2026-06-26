@@ -2,13 +2,14 @@
 
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAppSelector } from '@/app/hook';
+import { APP_ROUTES } from '@/common/constants/routing/routes';
 
 const PublicRoute = () => {
-    const { isAuthenticated } = useAppSelector((state) => state.auth);
+    const { isAuthenticated, isOnboardingCompleted } = useAppSelector((state) => state.auth);
     if (isAuthenticated) {
         return (
             <Navigate
-                to='/dashboard'
+                to={isOnboardingCompleted ? APP_ROUTES.PROTECTED.DASHBOARD : APP_ROUTES.PROTECTED.ONBOARDING}
                 replace
             />
         );
